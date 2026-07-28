@@ -1,71 +1,107 @@
-# 📡 Local Share
+📡 Local Share
 
-**Drop a file on your laptop, pick it up on your phone — no cloud, no cables, no account.**
+Move files between your laptop and phone in seconds — no cloud, no USB cable, no account.
 
-A self-hosted, LAN-only file-sharing web app: drag-and-drop uploads with a live progress bar, instant image/video preview, search, rename, a QR code + auto device discovery (mDNS), a shared-password login, and every file encrypted at rest. Runs anywhere Python runs, or as a single double-click `.exe` on Windows.
+I built Local Share because I got tired of uploading files to cloud storage just to transfer something from my laptop to my phone. If both devices are on the same Wi-Fi network, they should just talk to each other.
 
+That's exactly what this project does.
 
+It runs a small web server on your computer, and any device connected to the same network can instantly access it from a browser. Your files stay on your own network and never pass through someone else's servers.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/)
-[![FastAPI](https://img.shields.io/badge/built%20with-FastAPI-009688.svg)](https://fastapi.tiangolo.com/)
-[![Build Windows exe]https://github.com/kiran99756/Localshare/releases/tag/v1.0.0
-## Why
+---
 
-Sharing a file between your laptop and your phone shouldn't require uploading it to a cloud you don't control, emailing it to yourself, or plugging in a cable. If both devices are on the same Wi-Fi, this spins up a tiny private webpage every device on that network can use — nothing leaves the LAN.
+What it can do
 
-## Features
+- Drag and drop files to upload
+- See upload progress in real time
+- Preview images and videos without downloading them
+- Search files instantly
+- Rename files directly in the browser
+- Connect by scanning a QR code
+- Auto-discover the server using mDNS or UDP discovery
+- Password-protected login
+- Files are encrypted while stored on disk
+- Live chat between connected devices
+- Shows who is online
+- Dark mode
+- Can be packaged into a single Windows ".exe" so Python isn't required
 
-- 📤 **Drag-and-drop upload** with a real per-file progress bar
-- 🖼️ **Image & video preview** inline, no download needed
-- 🔍 **Search** across shared files
-- ✏️ **Rename** files from the browser
-- 📱 **Auto discovery, two ways** — scan the QR code, use `localshare.local` (mDNS), *or* a UDP broadcast beacon (`discovery.py`) that any client on the LAN can query for the server's IP — useful when mDNS is flaky
-- 🌐 **Optional internet sharing** — a "Share Over the Internet" button opens a temporary public HTTPS link (via a Cloudflare quick tunnel, no account/port-forwarding needed) for the rare case someone off your Wi-Fi needs a file. Password login still applies.
-- 📲 **Installable on Android** — Add to Home Screen for an app-like icon (PWA manifest + service worker); full standalone install works once accessed over HTTPS (e.g. the internet-sharing link above)
-- 🔒 **Password-protected + encrypted at rest** (AES via `cryptography`/Fernet) — a stolen laptop or leaked backup is just ciphertext
-- 💬 **Live chat + online presence** over WebSockets
-- 🖥️ **Single-file Windows `.exe`** — no Python required on the target machine
-- 🌗 Dark mode
+If you occasionally need to share a file with someone outside your Wi-Fi, there's also an optional Cloudflare Tunnel integration that creates a temporary HTTPS link without opening ports or creating an account.
 
-## Quick start
+---
 
-```bash
+Why I made this
+
+There are already lots of file-sharing apps, but most of them depend on cloud storage, ads, accounts, or internet access.
+
+Sometimes I just want to send a PDF, photo, or video from my laptop to my phone while sitting on the same Wi-Fi.
+
+That should take a few seconds—not three different apps.
+
+So I made Local Share.
+
+---
+
+Getting started
+
 git clone https://github.com/kiran99756/Localshare.git
-cd local-share
+cd Localshare
 pip install -r requirements.txt
 python main.py
-```
 
-The terminal prints your auto-generated password and a URL to open on your phone (or just scan the QR code shown on the page).
+When the server starts, it prints the local URL and generates a password.
 
-### Windows (no Python needed)
+Open the URL on your phone or simply scan the QR code shown on the page.
 
-Grab `LocalShare.exe` from [Releases](../../releases) and double-click it. Or build it yourself — see [BUILD.md](BUILD.md).
+That's it.
 
-### Internet sharing (optional, one-time setup)
+---
 
-The "Share Over the Internet" button needs the free `cloudflared` binary installed once on the host machine — details in [BUILD.md](BUILD.md#3-internet-sharing-feature-optional-one-time).
+Windows
 
-Full requirements/build details for every path (dev run, Windows exe, internet sharing, Android install) are in **[BUILD.md](BUILD.md)**.
+If you don't want to install Python, download the ready-to-use "LocalShare.exe" from the Releases page and double-click it.
 
-## Tech stack
+No setup required.
 
-FastAPI + WebSockets · SQLite · vanilla JS/CSS (no build step) · `cryptography` for at-rest encryption · `zeroconf` for mDNS · PyInstaller for the Windows build.
+---
 
-## Roadmap / ideas
+Tech Stack
 
-- [ ] Native Android app (currently: installable PWA via "Add to Home Screen")
-- [ ] Linux/macOS `.app` / AppImage builds (Windows exists via PyInstaller already)
-- [ ] Per-file expiry / auto-delete
-- [ ] Folder/zip upload support
+- FastAPI
+- WebSockets
+- SQLite
+- Vanilla JavaScript
+- HTML & CSS
+- Cryptography (Fernet encryption)
+- Zeroconf (mDNS)
+- PyInstaller
 
-Contributions welcome — see [Contributing](#contributing).
+No frontend framework. No build process. Just simple technologies that work.
 
-## Contributing
+---
 
-Issues and PRs are welcome. Good first areas: the roadmap above, UI polish, or testing on more Android/iOS browser combos. Please open an issue before a large PR so we can align on approach first.
+Future plans
 
-## License
+There are still plenty of ideas I'd like to add.
 
-MIT — see [LICENSE](LICENSE).
+- Native Android app
+- Linux and macOS builds
+- Folder uploads
+- ZIP uploads
+- Auto-delete after a chosen time
+- Better mobile experience
+- Faster transfers for large files
+
+---
+
+Contributing
+
+If you find a bug, have an idea, or want to improve something, feel free to open an issue or submit a pull request.
+
+Even small improvements are welcome.
+
+---
+
+License
+
+MIT License.
